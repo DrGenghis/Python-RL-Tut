@@ -77,7 +77,7 @@ def cast_confuse(*args, **kwargs):
 	
 	results = []
 	
-	if not libtcodmap_is_in_fov(fov_map, target_x, target_y):
+	if not libtcod.map_is_in_fov(fov_map, target_x, target_y):
 		results.append({'consumed': False, 'message': Message('You cannot target a tile outside your field of view.', libtcod.yellow)})
 		return results
 		
