@@ -42,7 +42,7 @@ def cast_lightning(*args, **kwargs):
 		results.append({'consumed': True, 'target': target, 'message': Message('A lightning bolt strikes {0} with a crack of thunder! It deals {1} damage'.format(target.name, damage))})
 		results.extend(target.fighter.take_damage(damage))
 	else:
-		reults.append({'consumed': False, 'target': None, 'message': Message('No enemy is close enough to strike!', libtcod.red)})
+		results.append({'consumed': False, 'target': None, 'message': Message('No enemy is close enough to strike!', libtcod.red)})
 		
 	return results
 	
@@ -82,7 +82,7 @@ def cast_confuse(*args, **kwargs):
 		return results
 		
 	for entity in entities:
-		if entity.x == target_x and entity.y == target_y and entity_ai:
+		if entity.x == target_x and entity.y == target_y and entity.ai:
 			confused_ai = ConfusedMonster(entity.ai, 10)
 			
 			confused_ai.owner = entity

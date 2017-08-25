@@ -201,18 +201,25 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 				game_state = GameStates.ENEMY_TURN
 
 			if equip:
+				print("in eq")
 				equip_results = player.equipment.toggle_equip(equip)
+
+				print(len(equip_results))
 				
 				for equip_result in equip_results:
+					print("something")
 					equipped = equip_result.get('equipped')
 					dequipped = equip_result.get('dequipped')
 					
 					if equipped:
+						print("equipped")
 						message_log.add_message(Message('You equipped the {0}'.format(equipped.name)))
-						
-					if dequipped:
+					elif dequipped:
+						print("dequipped")
 						message_log.add_message(Message('You dequipped the {0}'.format(dequipped.name)))
-						
+					else:
+						print("equip arg not found");
+
 					game_state = GameStates.ENEMY_TURN
 				
 			if targeting:

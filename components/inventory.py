@@ -31,26 +31,35 @@ class Inventory:
 
 		item_component = item_entity.item
 
-		if item_component.use_function is None:
-			equippable_component = item_entity.equippable
+		if item_component is not None:
+			if item_component.use_function is None:
+				equippable_component = item_entity.equippable
 
-			if equippable_component:
-				results.append({'equip': item_entity})
+				if equippable_component is not None:
+					print(equippable_component)
+					if equippable_component:
+						print("equip")
+						results.append({'equip': item_entity})
+					else:
+						print("cannot be used")
+						results.append({'message': Message('The {0} cannot be used'.format(item_entity.name), libtcod.yellow)})
+				else:
+					print("Not equippable")
 			else:
-				results.append({'message': Message('The {0} cannot be used'.format(item_entity.name), libtcod.yellow)})
+				if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
+					results.append({'targeting': item_entity})
+				else:
+					kwargs = {**item_component.function_kwargs, **kwargs}
+					item_use_results = item_component.use_function(self.owner, **kwargs)
+
+					for item_use_result in item_use_results:
+						if item_use_result.get('consumed'):
+							self.remove_item(item_entity)
+
+					results.extend(item_use_results)
 		else:
-			if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
-				results.append({'targeting': item_entity})
-			else:
-				kwargs = {**item_component.function_kwargs, **kwargs}
-				item_use_results = item_component.use_function(self.owner, **kwargs)
-
-				for item_use_result in item_use_results:
-					if item_use_result.get('consumed'):
-						self.remove_item(item_entity)
-
-				results.extend(item_use_results)
-
+			print(item_entity.name)
+			print(item_entity.item)
 		return results
 		
 	def drop_item(self, item):
