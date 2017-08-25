@@ -36,15 +36,10 @@ class Inventory:
 				equippable_component = item_entity.equippable
 
 				if equippable_component is not None:
-					print(equippable_component)
 					if equippable_component:
-						print("equip")
 						results.append({'equip': item_entity})
 					else:
-						print("cannot be used")
 						results.append({'message': Message('The {0} cannot be used'.format(item_entity.name), libtcod.yellow)})
-				else:
-					print("Not equippable")
 			else:
 				if item_component.targeting and not (kwargs.get('target_x') or kwargs.get('target_y')):
 					results.append({'targeting': item_entity})
@@ -57,9 +52,6 @@ class Inventory:
 							self.remove_item(item_entity)
 
 					results.extend(item_use_results)
-		else:
-			print(item_entity.name)
-			print(item_entity.item)
 		return results
 		
 	def drop_item(self, item):

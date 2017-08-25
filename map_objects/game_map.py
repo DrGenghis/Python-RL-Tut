@@ -180,10 +180,12 @@ class GameMap:
 				# Equipment
 				elif item_chance == 'sword':
 					equippable_component = Equippable(EquipmentSlots.MAIN_HAND, power_bonus=3)
-					item = Entity(x, y, '/', libtcod.sky, 'Sword', equippable=equippable_component)
+					item_component = Item()
+					item = Entity(x, y, '/', libtcod.sky, 'Sword', equippable=equippable_component, item=item_component)
 				elif item_chance == 'shield':
 					equippable_component = Equippable(EquipmentSlots.OFF_HAND, defense_bonus=1)
-					item = Entity(x, y, '[', libtcod.darker_orange, 'Shield', equippable=equippable_component)
+					item_component = Item()
+					item = Entity(x, y, '[', libtcod.darker_orange, 'Shield', equippable=equippable_component, item=item_component)
 				
 				entities.append(item)
 			
