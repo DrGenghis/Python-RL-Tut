@@ -43,31 +43,22 @@ class Equipment:
 		return bonus
 		
 	def toggle_equip(self, equippable_entity):
-		print("toggle equip")
 		results = []
 		
 		slot = equippable_entity.equippable.slot
 		
 		if slot == EquipmentSlots.MAIN_HAND:
-			print("main hand")
-
-			print(equippable_entity.name)
 
 			if self.main_hand == equippable_entity:
 				self.main_hand = None
 				results.append({'dequipped': equippable_entity})
 			else:
-				print("equip new gear")
 				if self.main_hand:
 					results.append({'dequipped': self.main_hand})
-
-					print("unequip then equip new thing")
 
 					self.main_hand = equippable_entity
 					results.append({'equipped': equippable_entity})
 				else:
-					print("equip new thing")
-
 					self.main_hand = equippable_entity
 					results.append({'equipped': equippable_entity})
 		elif slot == EquipmentSlots.OFF_HAND:

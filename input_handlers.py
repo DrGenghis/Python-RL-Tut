@@ -136,5 +136,3 @@ def handle_mouse(mouse):
 		return {'right_click': (x, y)}
 		
 	return {}
-		
-	return {}
