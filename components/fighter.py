@@ -36,6 +36,8 @@ class Fighter:
 
 		self.base_finesse + bonus
 
+		return self.base_finesse + bonus
+
 	@property
 	def allure(self):
 		if self.owner and self.owner.equipment:
@@ -89,32 +91,40 @@ class Fighter:
 			self.hp = self.max_hp
 
 	def attack_chance(self, target):
-		if self.owner.equipment.main_hand is not None:
-			weapon = self.owner.equipment.main_hand
-			if weapon.weapon_type == 'versatile':  # Versatile weapon can be brawn or finesse
-				if self.brawn > self.finesse:
+		if self.owner.equipment:
+			if self.owner.equipment.main_hand is not None:
+				weapon = self.owner.equipment.main_hand
+				if weapon.equippable.weapon_type == 'versatile':  # Versatile weapon can be brawn or finesse
+					if self.brawn > self.finesse:
+						if (dice_roll(6, number=2) + get_modifier(self.brawn)) >= target.fighter.armor_class:
+							# Hit
+							return True
+						else:
+							# Miss
+							return False
+					else:
+						if (dice_roll(6, number=2) + get_modifier(self.finesse)) >= target.fighter.armor_class:
+							# Hit
+							return True
+						else:
+							# Miss
+							return False
+				elif weapon.equippable.weapon_type == 'brawn':
 					if (dice_roll(6, number=2) + get_modifier(self.brawn)) >= target.fighter.armor_class:
 						# Hit
 						return True
 					else:
 						# Miss
 						return False
-				else:
+				elif weapon.equippable.weapon_type == 'finesse':
 					if (dice_roll(6, number=2) + get_modifier(self.finesse)) >= target.fighter.armor_class:
 						# Hit
 						return True
 					else:
 						# Miss
 						return False
-			elif weapon.weapon_type == 'brawn':
+			else:
 				if (dice_roll(6, number=2) + get_modifier(self.brawn)) >= target.fighter.armor_class:
-					# Hit
-					return True
-				else:
-					# Miss
-					return False
-			elif weapon.weapon_type == 'finesse':
-				if (dice_roll(6, number=2) + get_modifier(self.finesse)) >= target.fighter.armor_class:
 					# Hit
 					return True
 				else:
@@ -122,13 +132,9 @@ class Fighter:
 					return False
 		else:
 			if (dice_roll(6, number=2) + get_modifier(self.brawn)) >= target.fighter.armor_class:
-				# Hit
 				return True
 			else:
-				# Miss
 				return False
-
-		return False
 
 	def attack(self, target):
 		results = []
@@ -138,15 +144,15 @@ class Fighter:
 				if self.owner.equipment.main_hand:
 					weapon = self.owner.equipment.main_hand
 
-					if weapon.weapon_type == 'versatile':
+					if weapon.equippable.weapon_type == 'versatile':
 						if self.brawn > self.finesse:
-							damage = weapon.damage + get_modifier(self.brawn)
+							damage = dice_roll(weapon.equippable.damage) + get_modifier(self.brawn)
 						else:
-							damage = weapon.damage + get_modifier(self.finesse)
-					elif weapon.weapon_type == 'brawn':
-						damage = weapon.damage + get_modifier(self.brawn)
-					elif weapon.weapon_type == 'finesse':
-						damage = weapon.damage + get_modifier(self.finesse)
+							damage = dice_roll(weapon.equippable.damage) + get_modifier(self.finesse)
+					elif weapon.equippable.weapon_type == 'brawn':
+						damage = dice_roll(weapon.equippable.damage) + get_modifier(self.brawn)
+					elif weapon.equippable.weapon_type == 'finesse':
+						damage = dice_roll(weapon.equippable.damage) + get_modifier(self.finesse)
 				else:
 					damage = dice_roll(6) + get_modifier(self.brawn)
 			else:

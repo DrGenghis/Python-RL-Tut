@@ -19,27 +19,57 @@ class Equipment:
 		return bonus
 		
 	@property
-	def power_bonus(self):
+	def brawn_bonus(self):
 		bonus = 0
 		
 		if self.main_hand and self.main_hand.equippable:
-			bonus += self.main_hand.equippable.power_bonus
+			bonus += self.main_hand.equippable.brawn_bonus
 			
 		if self.off_hand and self.off_hand.equippable:
-			bonus += self.off_hand.equippable.power_bonus
+			bonus += self.off_hand.equippable.brawn_bonus
 			
 		return bonus
 		
 	@property
-	def defense_bonus(self):
+	def finesse_bonus(self):
 		bonus = 0
 		
 		if self.main_hand and self.main_hand.equippable:
-			bonus += self.main_hand.equippable.defense_bonus
+			bonus += self.main_hand.equippable.finesse_bonus
 			
 		if self.off_hand and self.off_hand.equippable:
-			bonus += self.off_hand.equippable.defense_bonus
+			bonus += self.off_hand.equippable.finesse_bonus
 			
+		return bonus
+
+	@property
+	def allure_bonus(self):
+		bonus = 0
+
+		if self.main_hand and self.main_hand.equippable:
+			bonus += self.main_hand.equippable.allure_bonus
+
+		if self.off_hand and self.off_hand.equippable:
+			bonus += self.off_hand.equippable.allure_bonus
+
+		return bonus
+
+	@property
+	def vitality_bonus(self):
+		bonus = 0
+
+		if self.main_hand and self.main_hand.equippable:
+			bonus += self.main_hand.equippable.vitality_bonus
+
+		if self.off_hand and self.off_hand.equippable:
+			bonus += self.off_hand.equippable.vitality_bonus
+
+		return bonus
+
+	@property
+	def ac_bonus(self):
+		bonus = 0
+
 		return bonus
 		
 	def toggle_equip(self, equippable_entity):

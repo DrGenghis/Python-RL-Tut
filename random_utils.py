@@ -29,7 +29,7 @@ def from_dungeon_level(table, dungeon_level):
 def dice_roll(sides, number=1):
 	result = 0
 
-	for die in number:
+	for i in range(number):
 		result += randint(1, sides)
 
 	return result
