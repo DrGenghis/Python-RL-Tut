@@ -128,14 +128,17 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 				message_log.add_message(Message('There are no stairs here.', libtcod.yellow))
 				
 		if level_up:
-			if level_up == 'hp':
-				player.fighter.base_max_hp += 20
-				player.fighter.hp += 20
-			elif level_up == 'str':
-				player.fighter.base_power += 1
-			elif level_up == 'def':
-				player.fighter.base_defense += 1
-				
+			if level_up == 'brawn':
+				player.fighter.base_brawn += 1
+			elif level_up == 'finesse':
+				player.fighter.base_finesse += 1
+			elif level_up == 'allure':
+				player.fighter.base_allure += 1
+			elif level_up == 'vitality':
+				player.fighter.base_vitality += 1
+
+			player.recalculate_health()
+
 			game_state = previous_game_state
 			
 		if show_character_screen:

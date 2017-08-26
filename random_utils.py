@@ -25,3 +25,11 @@ def from_dungeon_level(table, dungeon_level):
 			return value
 			
 	return 0
+
+def dice_roll(sides, number=1):
+	result = 0
+
+	for die in number:
+		result += randint(1, sides)
+
+	return result

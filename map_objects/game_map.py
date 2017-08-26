@@ -144,13 +144,13 @@ class GameMap:
 			if not any([entity for entity in entities if entity.x and entity.y == y]):
 				monster_choice = random_choice_from_dict(monster_chances)
 				if monster_choice == 'orc':
-					fighter_component = Fighter(hp=20, defense=0, power=4, xp=35)
+					fighter_component = Fighter(hitdice=8, brawn=2, finesse=1, allure=0, vitality=2,xp=35)
 					ai_component = BasicMonster()
 					
 					monster = Entity(x, y, 'o', libtcod.desaturated_green, 'orc', blocks=True,
 										render_order=RenderOrder.ACTOR, fighter=fighter_component, ai=ai_component)
 				else:
-					fighter_component = Fighter(hp=30, defense=2, power=8, xp=100)
+					fighter_component = Fighter(hitdice=12, brawn=4, finesse=2, allure=0, vitality=4, xp=100)
 					ai_component = BasicMonster()
 					
 					monster = Entity(x, y, 'T', libtcod.darker_green, 'troll', blocks=True,
