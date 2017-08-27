@@ -46,20 +46,22 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 		action = handle_keys(key, game_state)
 		mouse_action = handle_mouse(mouse)
 
-		move = action.get('move')
-		wait = action.get('wait')
-		pickup = action.get('pickup')
-		show_inventory = action.get('show_inventory')
-		drop_inventory = action.get('drop_inventory')
-		inventory_index = action.get('inventory_index')
-		take_stairs = action.get('take_stairs')
-		level_up = action.get('level_up')
-		show_character_screen = action.get('show_character_screen')
-		exit = action.get('exit')
-		fullscreen = action.get('fullscreen')
+		if action is not None:
+			move = action.get('move')
+			wait = action.get('wait')
+			pickup = action.get('pickup')
+			show_inventory = action.get('show_inventory')
+			drop_inventory = action.get('drop_inventory')
+			inventory_index = action.get('inventory_index')
+			take_stairs = action.get('take_stairs')
+			level_up = action.get('level_up')
+			show_character_screen = action.get('show_character_screen')
+			exit = action.get('exit')
+			fullscreen = action.get('fullscreen')
 
-		left_click = mouse_action.get('left_click')
-		right_click = mouse_action.get('right_click')
+		if mouse_action is not None:
+			left_click = mouse_action.get('left_click')
+			right_click = mouse_action.get('right_click')
 
 		player_turn_results = []
 
