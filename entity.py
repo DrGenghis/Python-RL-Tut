@@ -9,7 +9,7 @@ class Entity:
 	A generic object to represent player, enemies, items, etc.
 	"""
 	def __init__(self, x, y, char, color, name, blocks=False, render_order=RenderOrder.CORPSE, fighter=None, ai=None, item=None, inventory=None, stairs=None, level=None,
-					equipment=None, equippable=None):
+					equipment=None, equippable=None, corpse=None, blood_well=None):
 		self.x = x
 		self.y = y
 		self.char = char
@@ -25,6 +25,8 @@ class Entity:
 		self.level = level
 		self.equipment = equipment
 		self.equippable = equippable
+		self.corpse = corpse
+		self.blood_well = blood_well
 		
 		if self.fighter:
 			self.fighter.owner = self
@@ -49,6 +51,12 @@ class Entity:
 			
 		if self.equippable:
 			self.equippable.owner = self
+
+		if self.corpse:
+			self.corpse.owner = self
+
+		if self.blood_well:
+			self.blood_well.owner = self
 		
 	def move(self, dx, dy):
 		# Move the entity by a given amount

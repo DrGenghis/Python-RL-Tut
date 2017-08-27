@@ -7,6 +7,7 @@ from components.fighter import Fighter
 from components.inventory import Inventory
 from components.item import Item
 from components.level import Level
+from components.blood_well import BloodWell
 from entity import Entity
 from equipment_slots import EquipmentSlots
 from game_messages import MessageLog
@@ -18,8 +19,8 @@ from render_functions import RenderOrder
 def get_constants():
 	window_title = 'Vampyr'
 	
-	screen_width = 80
-	screen_height = 50
+	screen_width = 100
+	screen_height = 70
 	
 	bar_width = 20
 	panel_height = 7
@@ -76,15 +77,16 @@ def get_constants():
 	return constants
 	
 def get_game_variables(constants):
-	fighter_component = Fighter(hitdice=10, brawn=2, finesse=2, allure=2, vitality=2)
+	fighter_component = Fighter(hitdice=10, base_damage='1d6', brawn=2, finesse=2, allure=2, vitality=2)
 	inventory_component=Inventory(26)
 	level_component = Level()
 	equipment_component = Equipment()
+	blood_well_component = BloodWell()
 	player = Entity(0, 0, '@', libtcod.white, 'Player', blocks=True, render_order=RenderOrder.ACTOR, fighter=fighter_component, inventory=inventory_component, level=level_component,
-					equipment=equipment_component)
+					equipment=equipment_component, blood_well=blood_well_component)
 	entities = [player]
 	
-	equippable_component = Equippable(EquipmentSlots.MAIN_HAND, finesse_bonus=1, weapon_type='finesse', damage=4)
+	equippable_component = Equippable(EquipmentSlots.MAIN_HAND, finesse_bonus=1, weapon_type='finesse', damage='1d4')
 	item_dagger_component = Item()
 	dagger = Entity(0, 0, '-', libtcod.sky, 'Dagger', item=item_dagger_component, equippable=equippable_component)
 	player.inventory.add_item(dagger)

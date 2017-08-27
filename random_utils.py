@@ -26,10 +26,15 @@ def from_dungeon_level(table, dungeon_level):
 			
 	return 0
 
-def dice_roll(sides, number=1):
+def dice_roll(dice):
 	result = 0
 
-	for i in range(number):
-		result += randint(1, sides)
+	dice_stuff = dice.split('d')
+
+	dice_number = int(dice_stuff[0])
+	dice_sides = int(dice_stuff[1])
+
+	for i in range(dice_number):
+		result += randint(1, dice_sides)
 
 	return result

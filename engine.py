@@ -10,6 +10,7 @@ from loader_functions.initialize_new_game import get_constants, get_game_variabl
 from loader_functions.data_loaders import load_game, save_game
 from menus import main_menu, message_box
 from render_functions import clear_all, render_all
+from components.corpse import drain, age_up
 
 
 def play_game(player, entities, game_map, message_log, game_state, con, panel, constants):
@@ -95,8 +96,16 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 					player_turn_results.extend(pickup_results)
 
 					break
+				elif entity.corpse and entity.x == player.x and entity.y == player.y:
+					if entity.corpse.name == 'Dessicated':
+						message_log.add_message('The corpse has no blood left in it to drain', libtcod.yellow)
+						break
+					else:
+						drain(player, entity.corpse, message_log)
+						break
+
 			else:
-				message_log.add_message(Message('There is nothing here to pick up.', libtcod.yellow))
+				message_log.add_message(Message('There is nothing here to pick up', libtcod.yellow))
 
 		if show_inventory:
 			previous_game_state = game_state
@@ -136,8 +145,6 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 				player.fighter.base_allure += 1
 			elif level_up == 'vitality':
 				player.fighter.base_vitality += 1
-
-			player.recalculate_health()
 
 			game_state = previous_game_state
 			
@@ -242,6 +249,8 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 					game_state = GameStates.LEVEL_UP
 
 		if game_state == GameStates.ENEMY_TURN:
+			age_up(entities)
+
 			for entity in entities:
 				if entity.ai:
 					enemy_turn_results = entity.ai.take_turn(player, fov_map, game_map, entities)

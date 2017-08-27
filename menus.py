@@ -48,8 +48,11 @@ def level_up_menu(con, header, player, menu_width, screen_width, screen_height):
 	menu(con, header, options, menu_width, screen_width, screen_height)
 	
 def character_screen(player, character_screen_width, character_screen_height, screen_width, screen_height):
+	back_window = libtcod.console_new(character_screen_width + 2, character_screen_height + 2)
 	window = libtcod.console_new(character_screen_width, character_screen_height)
-	
+
+	libtcod.console_set_default_background(back_window, libtcod.red)
+	libtcod.console_set_default_foreground(back_window, libtcod.red)
 	libtcod.console_set_default_foreground(window, libtcod.white)
 	
 	libtcod.console_print_rect_ex(window, 0, 1, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Character Information')
@@ -57,11 +60,15 @@ def character_screen(player, character_screen_width, character_screen_height, sc
 	libtcod.console_print_rect_ex(window, 0, 3, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Experience: {0}'.format(player.level.current_xp))
 	libtcod.console_print_rect_ex(window, 0, 4, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'NEXT: {0}'.format(player.level.experience_to_next_level))
 	libtcod.console_print_rect_ex(window, 0, 6, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Maximum HP: {0}'.format(player.fighter.max_hp))
-	libtcod.console_print_rect_ex(window, 0, 7, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Attack: {0}'.format(player.fighter.power))
-	libtcod.console_print_rect_ex(window, 0, 8, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Defense: {0}'.format(player.fighter.defense))
+	libtcod.console_print_rect_ex(window, 0, 7, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Brawn: {0}'.format(player.fighter.brawn))
+	libtcod.console_print_rect_ex(window, 0, 8, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Finesse: {0}'.format(player.fighter.finesse))
+	libtcod.console_print_rect_ex(window, 0, 9, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Allure: {0}'.format(player.fighter.allure))
+	libtcod.console_print_rect_ex(window, 0, 10, character_screen_width, character_screen_height, libtcod.BKGND_NONE, libtcod.LEFT, 'Vitality: {0}'.format(player.fighter.vitality))
 	
 	x = screen_width // 2 - character_screen_width // 2
 	y = screen_height // 2 - character_screen_height // 2
+	libtcod.console_blit(back_window, 0, 0, character_screen_width + 4, character_screen_height + 4, 0, x - 1, y - 1, 1.0, 1.0)
+	libtcod.console_print_frame(back_window, 0, 0, character_screen_width + 2, character_screen_height + 2, flag=libtcod.BKGND_ADD)
 	libtcod.console_blit(window, 0, 0, character_screen_width, character_screen_height, 0, x, y, 1.0, 0.7)
 	
 def inventory_menu(con, header, player, inventory_width, screen_width, screen_height):

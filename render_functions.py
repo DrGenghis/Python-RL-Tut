@@ -75,6 +75,7 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 
 	render_bar(panel, 1, 1, bar_width, 'HP', player.fighter.hp, player.fighter.max_hp, libtcod.light_red, libtcod.darker_red)
 	libtcod.console_print_ex(panel, 1, 3, libtcod.BKGND_NONE, libtcod.LEFT, 'Dungeon Level: {0}'.format(game_map.dungeon_level))
+	render_bar(panel, 1, 5, bar_width, 'Blood Well', player.blood_well.blood, player.blood_well.max_blood, libtcod.darker_red, libtcod.darkest_red)
 
 	libtcod.console_set_default_foreground(panel, libtcod.light_gray)
 	libtcod.console_print_ex(panel, 1, 0, libtcod.BKGND_NONE, libtcod.LEFT,
@@ -94,7 +95,7 @@ def render_all(con, panel, entities, player, game_map, fov_map, fov_recompute, m
 		level_up_menu(con, 'Level up! Choose a stat to raise:', player, 40, screen_width, screen_height)
 		
 	elif game_state == GameStates.CHARACTER_SCREEN:
-		character_screen(player, 30, 10, screen_width, screen_height)
+		character_screen(player, 30, 20, screen_width, screen_height)
 		
 def clear_all(con, entities):
 	for entity in entities:
