@@ -30,5 +30,3 @@ def drain(player, corpse, message_log):
     corpse.age = 10
     corpse.blood = 0
     corpse.owner.color = libtcod.gray
-
-    return Message('You have drained all of the blood from the corpse, leaving it dry', libtcod.light_red)

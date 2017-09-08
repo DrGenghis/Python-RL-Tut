@@ -99,11 +99,13 @@ def play_game(player, entities, game_map, message_log, game_state, con, panel, c
 
 					break
 				elif entity.corpse and entity.x == player.x and entity.y == player.y:
-					if entity.corpse.name == 'Dessicated':
-						message_log.add_message('The corpse has no blood left in it to drain', libtcod.yellow)
+					if entity.corpse.blood == 0:
+						message_log.add_message(Message('The corpse has no blood left in it to drain', libtcod.yellow))
 						break
 					else:
 						drain(player, entity.corpse, message_log)
+						message_log.add_message(Message('You have drained all of the blood from the corpse, leaving it dry',
+														libtcod.light_red))
 						break
 
 			else:
