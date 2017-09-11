@@ -87,6 +87,17 @@ def inventory_menu(con, header, player, inventory_width, screen_width, screen_he
 				options.append(item.name)
 		
 	menu(con, header, options, inventory_width, screen_width, screen_height)
+
+def ability_menu(con, header, player, abmenu_width, screen_width, screen_height):
+	# Show a menu with each ability the player has available as an option
+	if len(player.ability.abilities) == 0:
+		options = ['You have no abilities']
+	else:
+		options = []
+
+		for ability in player.ability.abilities:
+			options.append(ability.name)
+
 	
 def message_box(con, header, width, screen_width, screen_height):
 	menu(con, header, [], width, screen_width, screen_height)

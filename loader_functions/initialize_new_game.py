@@ -20,7 +20,7 @@ def get_constants():
 	window_title = 'Vampyr'
 	
 	screen_width = 100
-	screen_height = 70
+	screen_height = 50
 	
 	bar_width = 20
 	panel_height = 7
